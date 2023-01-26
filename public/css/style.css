@@ -1,3 +1,8 @@
+body {
+  font-size: 100px;
+}
+
 #total {
   color: brown;
+  font-size: 10rem;
 }
