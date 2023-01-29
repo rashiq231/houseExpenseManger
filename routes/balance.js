@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
     path.join(__homeDirectory + "/data/balance.json"),
     JSON.stringify(req.body)
   );
-  res.send(200, req.body);
+  res.status(200).send(req.body);
 });
 
 export default router;

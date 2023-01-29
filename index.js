@@ -3,10 +3,12 @@ import apiRoutes from "./routes/index.js";
 const __dirname = dirnameFunction(import.meta.url);
 
 import express from "express";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors());
 
 app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/index.html");
