@@ -6,6 +6,7 @@ let {
   amountEle,
   totalEle,
   addExpenseButton,
+  amountAdded,
   tableBoady,
 } = new PageElements();
 import { data, entryData } from "./script.js";
@@ -17,8 +18,14 @@ let addExpenseFunc = async () => {
   let category = categoryEle.value;
   let description = descriptionEle.value || "";
   let amount = Number(amountEle.value);
-  data.total = data.total - amount;
+
   if (amountEle.value != "" && category != 0 && name != 0) {
+    if (amount < 0) {
+      data.amountAdded = data.amountAdded - amount;
+      console.log(data.amountAdded);
+      amountAdded.innerText = data.amountAdded;
+    }
+    data.remainingAmount = data.remainingAmount - amount;
     let balanceResponse = await fetch("/api/balance", {
       method: "POST",
       headers: {
@@ -28,8 +35,8 @@ let addExpenseFunc = async () => {
     });
 
     let balResData = await balanceResponse.json();
-    if (balResData["total"] != Number(totalEle.innerText)) {
-      totalEle.innerText = await balResData["total"];
+    if (balResData["remainingAmount"] != Number(totalEle.innerText)) {
+      totalEle.innerText = await balResData["remainingAmount"];
       entryData["entry"].unshift({
         name: name,
         amountSpend: amount,

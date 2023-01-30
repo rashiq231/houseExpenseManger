@@ -1,7 +1,8 @@
 import { filenameFunction, dirnameFunction } from "./utils/dirname.js";
 import apiRoutes from "./routes/index.js";
 const __dirname = dirnameFunction(import.meta.url);
-
+import { createFile } from "./utils/createFile.js";
+createFile();
 import express from "express";
 import cors from "cors";
 

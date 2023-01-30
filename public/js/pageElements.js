@@ -7,6 +7,7 @@ class PageElements {
   amountEle = document.querySelector("#amountEntered");
   addExpenseButton = document.querySelector("#addExpenseButton");
   tableBoady = document.querySelector("#tableBody");
+  amountAdded = document.querySelector("#amountAdded");
 }
 
 export default PageElements;
