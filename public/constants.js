@@ -6,6 +6,7 @@ export const categoyValues = [
   "Electricity",
   "Snacks",
   "Gas",
-  "Shop Rent",
+  "Milk",
+  "Wages",
   "Other",
 ];
