@@ -20,7 +20,7 @@ let createFile = async function () {
   } catch {
     let writeDataFile = await writeFile(
       path.join(`${__homeDirectory}/data/entry${month}${year}.json`),
-      `{"entry":[]}`
+      JSON.stringify({ entry: [] })
     );
 
     console.log(`creating a file`);

@@ -22,10 +22,11 @@ router.get("/", async (req, res) => {
     );
     res.send(JSON.parse(data));
   } catch {
-    createFile();
+    await createFile();
     let data = await readFile(
       path.join(__homeDirectory + `/data/entry${month}${year}.json`)
     );
+    console.log(await JSON.parse(data));
     res.send(JSON.parse(data));
   }
 });
