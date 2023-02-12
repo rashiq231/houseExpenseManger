@@ -43,6 +43,7 @@ let addExpenseFunc = async () => {
         date: new Date(Date.now()).toDateString(),
         description: description,
         category: category - 1,
+        id: Date.now(),
       });
     }
     let addEntryResposne = await fetch("/api/entry", {
@@ -79,8 +80,14 @@ let addTableData = function (tableData) {
     <td>${categoyValues[tableData["entry"][index]["category"]]}</td>
     <td>${tableData["entry"][index]["description"]}</td>
     <td>${tableData["entry"][index]["amountSpend"]}</td>
+    <td  class= "delete-icon" data-value=${
+      tableData["entry"][index]["id"]
+    }> <button><img src="/images/delete.png" alt="delete"></button></td>
+    
   </tr>`;
   }
 };
+
+let deleteAnExpenseRow = function () {};
 
 export { addExpenseFunc, resetFun, addTableData };

@@ -1,5 +1,6 @@
 body {
   font-size: 100px;
+  /* text-align: center; */
 }
 
 #total {
@@ -12,4 +13,15 @@ body {
 .container-sm {
   padding-bottom: 1em;
   padding-top: 2em;
+}
+
+img {
+  width: 2rem;
+  height: auto;
+}
+
+button {
+  border: none;
+  border-radius: 2rem;
+  background: none;
 }

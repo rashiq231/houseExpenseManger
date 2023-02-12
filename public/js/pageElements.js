@@ -8,6 +8,7 @@ class PageElements {
   addExpenseButton = document.querySelector("#addExpenseButton");
   tableBoady = document.querySelector("#tableBody");
   amountAdded = document.querySelector("#amountAdded");
+  deleteIcon = document.querySelector(".delete-icon");
 }
 
 export default PageElements;
