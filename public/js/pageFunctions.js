@@ -13,6 +13,8 @@ import { data, entryData } from "./script.js";
 
 import { categoyValues } from "../constants.js";
 
+import { postMethod } from "./fetchMethods.js";
+
 let addExpenseFunc = async () => {
   let name = nameEle.value;
   let category = categoryEle.value;
@@ -26,47 +28,32 @@ let addExpenseFunc = async () => {
       amountAdded.innerText = data.amountAdded;
     }
     data.remainingAmount = data.remainingAmount - amount;
-    let balanceResponse = await fetch("/api/balance", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+
+    entryData["entry"].unshift({
+      name: name,
+      amountSpend: amount,
+      date: new Date(Date.now()).toDateString(),
+      description: description,
+      category: category - 1,
+      id: Date.now(),
     });
 
-    let balResData = await balanceResponse.json();
-    if (balResData["remainingAmount"] != Number(totalEle.innerText)) {
-      totalEle.innerText = await balResData["remainingAmount"];
-      entryData["entry"].unshift({
-        name: name,
-        amountSpend: amount,
-        date: new Date(Date.now()).toDateString(),
-        description: description,
-        category: category - 1,
-        id: Date.now(),
+    Promise.all([
+      postMethod("/api/balance", data),
+      postMethod("/api/entry", entryData),
+    ])
+      .then((resolve) => {
+        console.log(resolve);
+        resetFun();
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    }
-    let addEntryResposne = await fetch("/api/entry", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(entryData),
-    });
-
-    if ((await addEntryResposne.status) == 200) {
-      tableBoady.innerHTML = "";
-      addTableData(entryData);
-    }
-    resetFun();
   }
 };
 
 let resetFun = function () {
-  nameEle.value = "0";
-  categoryEle.value = "0";
-  descriptionEle.value = "";
-  amountEle.value = "";
+  location.reload();
 };
 
 let addTableData = function (tableData) {

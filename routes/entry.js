@@ -8,6 +8,7 @@ import { month, year } from "../utils/dateLogic.js";
 
 import { createFile } from "../utils/createFile.js";
 
+import { verifyEntryIdExists } from "./middlewareFunctions/entryMiddleware.js";
 // const __dirname = dirnameFunction(import.meta.url);
 
 const router = Router();
@@ -56,6 +57,20 @@ router.delete("/:fileName", async (req, res) => {
     { recursive: true, force: true }
   );
   res.status(200).send("file deleted");
+});
+
+router.delete("/:filename/id/:id", verifyEntryIdExists, async (req, res) => {
+  let { filename, id } = req.params;
+  let index = req.query.index;
+  let dataArray = req.fileData.entry;
+  let updatedArray = {
+    entry: dataArray.slice(0, index).concat(dataArray.slice(index + 1)),
+  };
+  await writeFile(
+    path.join(__homeDirectory + `/data/entry${month}${year}.json`),
+    JSON.stringify(updatedArray)
+  );
+  res.status(200).send(updatedArray);
 });
 
 router.put("/:fileName", async (req, res) => {
